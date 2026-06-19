@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -32,6 +32,7 @@ body{
   justify-content:center;
   align-items:center;
   text-align:center;
+  position:relative;
 }
 
 .hero img{
@@ -55,6 +56,35 @@ body{
   overflow:hidden;
   width:0;
   animation:typing 3s steps(20) forwards, blink .7s infinite;
+}
+
+/* SWIPE INDICATOR */
+
+.swipe-indicator{
+  position:absolute;
+  bottom:40px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  color:#94a3b8;
+  font-size:13px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  animation:fadeBounce 2s ease-in-out infinite;
+}
+
+.swipe-indicator svg{
+  width:22px;
+  height:22px;
+  stroke:#38bdf8;
+}
+
+@keyframes fadeBounce{
+  0%,100%{ transform:translate(-50%,0); opacity:0.5; }
+  50%{ transform:translate(-50%,10px); opacity:1; }
 }
 
 /* CONTAINER */
@@ -116,6 +146,26 @@ body{
   margin-bottom:10px;
   padding-left:10px;
   border-left:3px solid #38bdf8;
+}
+
+/* CERTIFICATE */
+
+.certificate-wrap{
+  display:flex;
+  justify-content:center;
+  margin-top:15px;
+}
+
+.certificate-wrap img{
+  max-width:100%;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.15);
+  box-shadow:0 10px 30px rgba(0,0,0,0.4);
+  transition:0.4s;
+}
+
+.certificate-wrap img:hover{
+  transform:scale(1.03);
 }
 
 /* ACCOUNTS */
@@ -188,6 +238,13 @@ body{
   <img src="IMG_3952.jpeg">
   <h1>Anas Mohamed</h1>
   <div class="typing">Front-End Developer</div>
+
+  <div class="swipe-indicator">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 5v14M19 12l-7 7-7-7"></path>
+    </svg>
+    Swipe
+  </div>
 </div>
 
 <div class="container">
@@ -207,6 +264,14 @@ body{
     <div class="edu-item">Bachelor’s Degree in Agriculture – Food Safety Department</div>
     <div class="edu-item">2026 - Data Science Certificate</div>
 
+  </div>
+
+  <!-- CERTIFICATE -->
+  <div class="card">
+    <h2>Certificate</h2>
+    <div class="certificate-wrap">
+      <img src="certificate.jpg" alt="Anas Mohamed Certificate">
+    </div>
   </div>
 
   <!-- SKILLS -->
@@ -273,6 +338,12 @@ window.addEventListener("scroll", () => {
     }
   });
 });
+
+// hide swipe indicator after first scroll
+window.addEventListener("scroll", () => {
+  const indicator = document.querySelector(".swipe-indicator");
+  if(indicator) indicator.style.opacity = window.scrollY > 50 ? "0" : "1";
+}, { passive:true });
 
 // copy email
 function copyText(text){
