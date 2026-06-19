@@ -107,7 +107,7 @@ body{
   backdrop-filter:blur(10px);
   opacity:0;
   transform:translateY(40px);
-  transition:0.8s;
+  transition:2.4s ease-out;
 }
 
 .card.show{
@@ -330,14 +330,20 @@ body{
 // scroll animation
 const cards = document.querySelectorAll(".card");
 
-window.addEventListener("scroll", () => {
+function revealCards(){
   cards.forEach(card => {
-    const offset = card.offsetTop - 500;
+    const offset = card.offsetTop - window.innerHeight;
     if(window.scrollY > offset){
       card.classList.add("show");
+    } else {
+      card.classList.remove("show");
     }
   });
-});
+}
+
+window.addEventListener("scroll", revealCards);
+window.addEventListener("load", revealCards);
+revealCards();
 
 // hide swipe indicator after first scroll
 window.addEventListener("scroll", () => {
